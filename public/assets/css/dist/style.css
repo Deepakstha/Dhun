@@ -1,0 +1,121 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.double-container {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+}
+
+.left-container {
+  background-color: #272727;
+  padding: 30px;
+  height: 100vh;
+}
+
+.left-content h1 {
+  color: white;
+  font-size: 65px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.left-content ul {
+  margin-top: 30px;
+}
+.left-content ul li {
+  list-style: none;
+}
+.left-content ul li a {
+  text-decoration: none;
+  color: white;
+  font-size: 25px;
+  font-family: Arial, Helvetica, sans-serif;
+  transition: 0.3s all ease-in-out;
+}
+.left-content ul li a .link-img {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  padding: 15px;
+  transition: 0.2s all ease-in-out;
+}
+.left-content ul li a .link-img:hover {
+  background-color: #EE4950;
+  border-radius: 7px;
+}
+
+.right-container {
+  background-color: #000000;
+  padding: 50px;
+}
+
+.right-content .signup-button-flex {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: 40px;
+}
+.right-content .signup-button-flex a {
+  text-decoration: none;
+}
+.right-content .signup-button-flex .no-bg-button {
+  font-size: 15px;
+  color: #ffffff;
+  font-weight: 700;
+  font-family: Arial, Helvetica, sans-serif;
+  transition: 0.2s all ease-in-out;
+}
+.right-content .signup-button-flex .no-bg-button:hover {
+  background-color: #EE4950;
+  padding: 15px 20px;
+  border-radius: 15px;
+}
+.right-content .signup-button-flex .box-button {
+  font-weight: 700;
+  font-size: 15px;
+  background-color: #ffffff;
+  padding: 15px 20px;
+  border-radius: 15px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #000000;
+  transition: 0.2s all ease-in-out;
+}
+.right-content .signup-button-flex .box-button:hover {
+  transform: scale(0.9);
+}
+
+.searchform {
+  display: flex;
+  gap: 35px;
+  padding: 5px 15px;
+  background: white;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+}
+
+.wrap {
+  display: flex;
+  padding: 15px 35px;
+  justify-content: center;
+}
+
+.search-inside-flex {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.right-content {
+  display: grid;
+  grid-template-columns: 1fr 0.3fr;
+  justify-items: center;
+}
+
+.search-inside-flex input {
+  padding: 15px 0px;
+  border: none;
+  width: 300px;
+  outline: none;
+}
