@@ -1,0 +1,19 @@
+require("dotenv").config();
+const productionDev = {
+  MYSQLDATABASE: process.env.MYSQLDATABASE,
+  MYSQLHOST: process.env.MYSQLHOST,
+  MYSQLPASSWORD: process.env.MYSQLPASSWORD,
+  MYSQLPORT: process.env.MYSQLPORT,
+  MYSQLUSER: process.env.MYSQLUSER,
+  CHECKOMMIT: process.env.OMMIT,
+  JWT_SECREAT: process.env.JWT_SECRET,
+  KHALTI_MIN_AMOUNT: process.env.KHALTI_MIN_AMOUNT,
+  KHALTI_MAX_AMOUNT: process.env.KHALTI_MAX_AMOUNT,
+  KHALTI_API_ENDPOINT: process.env.KHALTI_API_ENDPOINT,
+  KHALTI_SECRET_KEY: process.env.KHALTI_SECRET_KEY,
+  KHALTI_PUBLIC_KEY: process.env.KHALTI_PUBLIC_KEY,
+  LOCAL_API_ENDPOINT: process.env.LOCAL_API_ENDPOINT,
+  MIN_WITHDRAW_AMOUNT: process.env.MIN_WITHDRAW_AMOUNT,
+  MAX_WITHDRAW_AMOUNT: process.env.MAX_WITHDRAW_AMOUNT,
+};
+module.exports = productionDev;
