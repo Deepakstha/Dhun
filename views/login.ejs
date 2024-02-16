@@ -14,25 +14,27 @@
                 <img src="assets/images/logodhun.png" alt="">
                 <h2>Welcome Back</h2>
                 <p>Please enter your contact details to connect.</p>
-                <form action="">
+                <p style="color: aliceblue;"><%= message%></p>
+                <form action="/login", method="post">
                     <label for="email">Email Address:</label>
                     <input type="email" id="email" name="email" required class="mb-25">
                     <label for="password">Password:</label>
                     <input type="password" id="password" name="password" required>
-                </form>
-                <div class="forgot-pass-flex mt-25 mb-25">
-                    <div class="rememberme-box">
-                        <input type="checkbox" id="rememberMe" name="rememberMe">
-                        <label for="rememberMe">Remember Me</label>
+                    <div class="forgot-pass-flex mt-25 mb-25">
+                        <div class="rememberme-box">
+                            <input type="checkbox" id="rememberMe" name="rememberMe">
+                            <label for="rememberMe">Remember Me</label>
+                        </div>
+                        <a href="">Forgot Passoword</a>
                     </div>
-                    <a href="">Forgot Passoword</a>
-                </div>
-                <div class="flex-btn-login">
-                    <a href="" class="login-without-logo">Log In</a>
-                    <a href="" class="login-with-logo"><img src="assets/images/google.svg" alt=""> Log in with Google</a>
-                </div>
+                    <div class="flex-btn-login">
+                        <button type="submit" class="login-without-logo">Log In</button>
+                        <a href="" class="login-with-logo"><img src="assets/images/google.svg" alt=""> Log in with Google</a>
+                    </div>
+                </form>
+                
                 <div class="dont-have-accnt">
-                    <h3>Don't have an account?</h3><a href="">Sign Up here</a>
+                    <h3>Don't have an account?</h3><a href="/listener-signup">Sign Up here</a>
                 </div>
             </div>
             <div class="right-login-content">

@@ -24,7 +24,7 @@
                     <!-- <h1>LOGO</h1> -->
                     <img src="assets/images/logodhun.png" alt="">
                     <ul>
-                        <li><a href="index.html">
+                        <li><a href="/">
                                 <div class="link-img"><img src="assets/images/home.svg" alt="">Home</div>
                             </a></li>
                         <li><a href="browse.html">
@@ -36,9 +36,12 @@
                     </ul>
                 </div>
             </div>
+            
             <div class="right-container">
+                <p style="color: aliceblue;"><%= message%></p>
                 <div class="right-content">
                     <div class="wrap">
+
                         <form class="searchform">
                             <div class="search-inside-flex">
                                 <a href="#"><img src="assets/images/search.svg" alt=""></a>
@@ -47,10 +50,20 @@
                             <a href="#"><img src="assets/images/mic.svg" alt=""></a>
                         </form>
                     </div>
-                    <div class="signup-button-flex">
-                        <a href="http://" class="no-bg-button">Sign Up</a>
-                        <a href="http://" class="box-button">Log In</a>
-                    </div>
+
+                    <% if (token) { %>
+                        <div class="profile-icon" style=" display: inline-block; width:  100px; height:  100px; border-radius:  50%; border:1px solid white; overflow: hidden;"> <!-- Style this as you wish -->
+                            <!-- Display profile icon or any other profile-related content -->
+                            <img src="/uploads/avatar/avatar.png" alt="Profile Icon" style=" width:  100%;
+                            height: auto;">
+                        </div>
+                    <% } else { %>
+                        <div class="signup-button-flex">
+                            <a href="/listener-signup" class="no-bg-button">Sign Up</a>
+                            <a href="/login" class="box-button">Log In</a>
+                        </div>
+                    <% } %>
+                    
                 </div>
                 <div class="slider-imgae-top-bg">
                     <div class="slider-banner-content">

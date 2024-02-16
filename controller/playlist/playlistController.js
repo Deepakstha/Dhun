@@ -6,8 +6,8 @@ exports.createPlayList = async (req, res, next) => {
   const userId = req.userId;
   const { name, songId } = req.body;
   try {
-    if (!name || !songId)
-      return next(customErrorHandler(400, "Name and Song Id are required"));
+    if (!name || !songId) req.flash("message", "Name and Song Id are required");
+    return next(customErrorHandler(400, "Name and Song Id are required"));
 
     const checkPlaylist = await Playlist.findOne({
       where: {
@@ -36,18 +36,19 @@ exports.createPlayList = async (req, res, next) => {
 exports.getAllUserPlaylists = async (req, res, next) => {
   const userId = req.userId;
   const playlist = await Playlist.findAll({ where: { userId } });
-  return res.status(200).json({
-    success: true,
-    count: playlist.length,
-    data: playlist,
-  });
+
+  res.render("createplaylist", { title: "Create a playlist", data: playlist });
+  // return res.status(200).json({
+  //   success: true,
+  //   count: playlist.length,
+  //   data: playlist,
+  // });
 };
 
 // get one playlist song
 exports.getPlaylistSong = async (req, res, next) => {
   const userId = req.userId;
-  console.log(userId);
-  const { name } = req.body;
+  const { name } = req.params;
   try {
     const playlist = await Playlist.findAll({
       where: { name, userId },
@@ -67,7 +68,7 @@ exports.getPlaylistSong = async (req, res, next) => {
 // delete playlist
 exports.deletePlaylist = async (req, res, next) => {
   const userId = req.userId;
-  const { name } = req.body;
+  const { name } = req.params;
   const playlist = await Playlist.findOne({
     where: { name, userId },
   });
