@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dhun | Home</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 </head>
 
@@ -22,33 +22,33 @@
             <div class="left-container">
                 <div class="left-content">
                     <!-- <h1>LOGO</h1> -->
-                    <img src="assets/images/logodhun.png" alt="">
+                    <img src="/assets/images/logodhun.png" alt="">
                     <ul>
-                        <li><a href="index.html">
-                                <div class="link-img"><img src="assets/images/home.svg" alt="">Home</div>
+                        <li><a href="/">
+                                <div class="link-img"><img src="/assets/images/home.svg" alt="">Home</div>
                             </a></li>
-                        <li><a href="browse.html">
-                                <div class="link-img"><img src="assets/images/browse.svg" alt="">Browse</div>
+                        <li><a href="/browse">
+                                <div class="link-img"><img src="/assets/images/browse.svg" alt="">Browse</div>
                             </a></li>
-                        <li><a href="library.html">
-                                <div class="link-img"><img src="assets/images/library.svg" alt="">Library</div>
+                        <li><a href="/library">
+                                <div class="link-img"><img src="/assets/images/library.svg" alt="">Library</div>
                             </a></li>
                     </ul>
                     <div class="playlist-creation-logout">
-                        <a href="#">
-                            <img src="assets/images/plus.svg" alt="">
+                        <a href="/playlist">
+                            <img src="/assets/images/plus.svg" alt="">
                             <p>Create Playlist</p>
                         </a>
-                        <a href="#">
-                            <img src="assets/images/love-playlist.svg" alt="">
+                        <a href="/liked-list">
+                            <img src="/assets/images/love-playlist.svg" alt="">
                             <p>Liked Songs</p>
                         </a>
                         <a href="#" class="mt-45 ml-20">
-                            <img src="assets/images/setting.svg" alt="">
+                            <img src="/assets/images/setting.svg" alt="">
                             <p>Setting</p>
                         </a>
-                        <a href="#" class="ml-20">
-                            <img src="assets/images/logout.svg" alt="">
+                        <a href="/logout" class="ml-20">
+                            <img src="/assets/images/logout.svg" alt="">
                             <p>LogOut</p>
                         </a>
                     </div>
@@ -57,49 +57,37 @@
             <div class="right-container">
                 <div class="right-content">
                     <div class="wrap">
-                        <form class="searchform">
+                        <form action="/search" class="searchform" method="post">
                             <div class="search-inside-flex">
                                 <a href="#"><img src="assets/images/search.svg" alt=""></a>
-                                <input type="text" placeholder="Search artists, songs, albums...">
+                                <input type="text" name="query" placeholder="Search artists, songs, albums...">
                             </div>                                                                                                                                                                                                                                                                                                                                                                                                              
-                            <a href="#"><img src="assets/images/mic.svg" alt=""></a>
+                            <a href="#"><img src="/assets/images/mic.svg" alt=""></a>
+                            <button type="submit"  id="btnSearch" >SEARCH</button>
                         </form>
                     </div>
                     <div class="signup-button-flex">
-                        <a href="http://"><img src="assets/images/profilepic.png" alt=""></a>
+                        <a href="http://"><img src="/assets/images/profilepic.png" alt=""></a>
                     </div>
                     <div class="banner-content">
                         <h2>Now Playing</h2>
-                        <img src="assets/images/nepathyabanner.png" alt="">
+                        
+                        <img src="/<%= song.poster %>" alt="">
                         <div class="master_play">
-                            <div class="wave">
-                                <div class="wave1"></div>
-                                <div class="wave1"></div>
-                                <div class="wave1"></div>
-                            </div>
-                            <img src="assets/images/girl-playing.png" alt="Alan" id="poster_master_play">
-                            <h5 id="title">Gau Gau Bata<br>
-                                <div class="subtitle">Nepathya</div>
+                            
+                            <img src="/<%= song.poster %>" alt="Alan" id="poster_master_play">
+                            <h5 id="title"><%= song.title %><br>
+                                <div class="subtitle"><%= song.user.fullName %></div>
                             </h5>
-                            <div class="icon">
-                                <i class="bi bi-skip-start-fill" id="back"></i>
-                                <i class="bi bi-play-fill" id="masterPlay"></i>
-                                <i class="bi bi-skip-end-fill" id="next"></i>
-                            </div>
-                            <span id="currentStart">0:00</span>
-                            <div class="bar">
-                                <input type="range" id="seek" min="0" value="0" max="100">
-                                <div class="bar2" id="bar2"></div>
-                                <div class="dot"></div>
-                            </div>
-                            <span id="currentEnd">0:00</span>
-                            <img src="assets/images/cloud.svg" alt="" srcset="" style="width: 20px; height: auto; margin-left: 15px">
-                            <img src="assets/images/library-player.svg" alt="" srcset="" style="width: 20px; height: auto; margin-left: 15px">
-                            <img src="assets/images/love-icon.svg" alt="" srcset="" style="width: 20px; height: auto; margin-left: 15px">
-                            <img src="assets/images/three-dot.svg" alt="" srcset="" style="width: 20px; height: auto; margin-left: 15px; margin-right: 15px;">    
-                            <div class="vol">
-                                <i class="bi bi-volume-down-fill" id="vol_icon"></i>
-                            </div>
+                           
+                            <span id="currentStart"> <%= song.createdAt %></span>
+                            
+                           
+                            <audio autoPlay loop controls>
+                                <source src="/<%= song.audioPath %>"></source>
+                              </audio>  
+                            <img style="cursor: pointer;" id="likeButton" data-song-id="<%= song.id %>" src="/assets/images/love-icon.svg" alt="" srcset="" style="width: 20px; height: auto; margin-left: 15px">
+                           
                         </div>
                     </div>
                 </div>
@@ -117,6 +105,33 @@
     <!---------------BODY HTML ENDS FROM HERE-------------------------->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="assets/js/script.js"></script>
+    <script>
+        document.getElementById('likeButton').addEventListener('click', function() {
+  var songId = this.getAttribute('data-song-id');
+  function sendLikeToBackend(songId) {
+  // Replace with your backend URL
+  var url = `http://localhost:8000/like/${songId}`;
+
+  // Prepare the data to send
+  var data = { songId: songId };
+
+  // Use fetch API to send the data
+  fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch((error) => {
+    console.error('Error:', error);
+  });
+}
+  sendLikeToBackend(songId);
+});
+    </script>
 </body>
 
 </html>

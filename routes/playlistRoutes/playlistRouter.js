@@ -15,6 +15,11 @@ router.post(
   isAuthenticated,
   catchAsync(playlistController.createPlayList)
 );
+router.post(
+  "/add-song-to-playlist",
+  isAuthenticated,
+  catchAsync(playlistController.addSongInPlaylist)
+);
 
 // router.get(
 //   "/all-playlist",
@@ -22,7 +27,7 @@ router.post(
 //   catchAsync(playlistController.getAllUserPlaylists)
 // );
 router.get(
-  "/display-playlist/:name",
+  "/display-playlist/:playlistId",
   isAuthenticated,
   catchAsync(playlistController.getPlaylistSong)
 );

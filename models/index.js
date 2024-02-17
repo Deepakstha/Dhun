@@ -30,17 +30,31 @@ db.sequelize = sequelize;
 db.user = require("./user/userModel")(sequelize, DataTypes);
 db.songs = require("./songs/songsModel")(sequelize, DataTypes);
 db.playlist = require("./playlist/playlistModel")(sequelize, DataTypes);
+db.playlistSongs = require("./playlist/playlistSongsModel")(
+  sequelize,
+  DataTypes
+);
 db.like = require("./likes/likesModel")(sequelize, DataTypes);
+db.category = require("./category/categoryModel")(sequelize, DataTypes);
 
 //relation with user and songs
 db.user.hasMany(db.songs, { onDelete: "cascade", constraints: true });
 db.songs.belongsTo(db.user);
 
+db.category.hasMany(db.songs);
+db.songs.belongsTo(db.category);
+
 db.user.hasMany(db.playlist, { onDelete: "cascade", constraints: true });
 db.playlist.belongsTo(db.user);
 
+db.playlist.hasMany(db.playlistSongs, {
+  onDelete: "cascade",
+  constraints: true,
+});
+db.playlistSongs.belongsTo(db.playlist);
+
 db.songs.hasMany(db.playlist, { onDelete: "cascade", constraints: true });
-db.playlist.belongsTo(db.songs);
+db.playlistSongs.belongsTo(db.songs);
 
 db.songs.hasMany(db.like, {
   as: "Likes",

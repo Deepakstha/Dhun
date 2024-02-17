@@ -3,9 +3,11 @@ const db = require("../../models");
 const jwt = require("jsonwebtoken");
 const customErrorHandler = require("../../middleware/customErrorHandler");
 const User = db.user;
+const Song = db.songs;
+const Like = db.like;
 
 exports.displaySignUpFormForListener = async (req, res, next) => {
-  res.render("listenersignup");
+  return res.render("listenersignup");
 };
 exports.displaySignupFormForArtist = async (req, res, next) => {
   res.render("artistsignup");
@@ -14,6 +16,36 @@ exports.displaySignupFormForArtist = async (req, res, next) => {
 exports.displayLoginForm = async (req, res, next) => {
   const message = req.flash("message");
   res.render("login", { message });
+};
+
+exports.displayListenerIndexPage = async (req, res, next) => {
+  const userId = req.userId;
+  const user = await User.findOne({
+    where: {
+      id: userId,
+    },
+  });
+  if (user.role != "listener") return res.redirect("/");
+
+  const allSongs = await Song.findAll({});
+
+  const message = req.flash("message");
+  const token = req.cookies.token;
+  return res.render("listenerindex", { message, token, allSongs });
+};
+exports.displayArtistIndexPage = async (req, res, next) => {
+  const userId = req.userId;
+  const user = await User.findOne({
+    where: {
+      id: userId,
+    },
+  });
+  if (user.role != "artist") return res.redirect("/");
+  const allSongs = await Song.findAll({});
+
+  const message = req.flash("message");
+  const token = req.cookies.token;
+  return res.render("artistindex", { message, token, allSongs });
 };
 
 // Signup Controller
@@ -79,10 +111,32 @@ exports.login = async (req, res) => {
     { expiresIn: "5d" }
   );
   res.cookie("token", token, { httpOnly: true });
-  return res.redirect("/");
+  if (user.role === "listener") {
+    return res.redirect("/listener");
+  }
+  return res.redirect("/artist");
 };
 
 exports.logout = (req, res) => {
   res.clearCookie("token");
   res.redirect("/");
+};
+
+exports.artistProfile = async (req, res) => {
+  const artistId = req.params.id;
+  const user = await User.findOne({
+    where: {
+      id: artistId,
+    },
+  });
+  if (user.role != "artist") {
+    return res.json({ message: "Not artist" });
+  }
+  const songs = await Song.findAll({
+    where: {
+      userId: artistId,
+    },
+  });
+  const len = songs.length;
+  return res.render("artistprofile", { user, totalSongs: len });
 };

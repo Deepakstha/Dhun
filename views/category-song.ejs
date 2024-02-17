@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Dhun | Home</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
-        <link rel="stylesheet" href="assets/css/style.css">
+        <link rel="stylesheet" href="/assets/css/style.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     </head>
 
@@ -22,97 +22,57 @@
             <div class="left-container">
                 <div class="left-content">
                     <!-- <h1>LOGO</h1> -->
-                    <img src="assets/images/logodhun.png" alt="">
+                    <img src="/assets/images/logodhun.png" alt="">
                     <ul>
-                        <li><a href="/index">
-                                <div class="link-img"><img src="assets/images/home.svg" alt="">Home</div>
+                        <li><a href="/">
+                                <div class="link-img"><img src="/assets/images/home.svg" alt="">Home</div>
                             </a></li>
                         <li><a href="/browse">
-                                <div class="link-img"><img src="assets/images/browse.svg" alt="">Browse</div>
+                                <div class="link-img"><img src="/assets/images/browse.svg" alt="">Browse</div>
                             </a></li>
                         <li><a href="/library">
-                                <div class="link-img"><img src="assets/images/library.svg" alt="">Library</div>
+                                <div class="link-img"><img src="/assets/images/library.svg" alt="">Library</div>
                             </a></li>
                     </ul>
-                    <div class="playlist-creation-logout">
-                        
-                        <a href="/logout" class="ml-20">
-                            <img src="assets/images/logout.svg" alt="">
-                            <p>LogOut</p>
-                        </a>
-                    </div>
                 </div>
             </div>
             <div class="right-container">
                 <div class="right-content">
                     <div class="wrap">
-                        <form class="searchform">
+                        <form action="/search" class="searchform" method="post">
                             <div class="search-inside-flex">
                                 <a href="#"><img src="assets/images/search.svg" alt=""></a>
-                                <input type="text" placeholder="Search artists, songs, albums...">
+                                <input type="text" name="query" placeholder="Search artists, songs, albums...">
                             </div>                                                                                                                                                                                                                                                                                                                                                                                                              
-                            <a href="#"><img src="assets/images/mic.svg" alt=""></a>
+                            <a href="#"><img src="/assets/images/mic.svg" alt=""></a>
+                            <button type="submit"  id="btnSearch" >SEARCH</button>
                         </form>
                     </div>
                     <div class="signup-button-flex">
                         <a href="http://"><img src="assets/images/profilepic.png" alt=""></a>
                     </div>
                 </div>
+                <h1 style="color: #FFF;">Songs In <%=categoryName%> Category</h1>
                 <div class="genre-whole-box">
                     <div class="genre-content-box mb-30">
                         <div class="genre-music-box">
+                            <% songsInThisCat.forEach(function(item) { %>
 
-                            <% search.forEach(function(item) { %>
-
-                                <a href="/one-song/<%= item.songId %>">
+                                <a href="/one-song/<%= item.id %>">
                                     <div class="genre-single-box">
-                                        <img src="/<%= item.songPoster %>" alt="">
+                                        <img src="/<%= item.poster %>" alt="">
                                         <h3><%= item.title %></h3>
-                                        <h3><%= item.fullName %></h3>
                                         <p>Likes: <%= item.likes %> </p>
                                     </div>
                                 </a>
                               <% }); %>
-
-
-                           
+                            
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
-    <div class="master_play">
-        <div class="wave">
-            <div class="wave1"></div>
-            <div class="wave1"></div>
-            <div class="wave1"></div>
-        </div>
-        <img src="assets/images/girl-playing.png" alt="Alan" id="poster_master_play">
-        <h5 id="title">Vande Mataram<br>
-            <div class="subtitle">Bankim Chandra</div>
-        </h5>
-        <div class="icon">
-            <i class="bi bi-skip-start-fill" id="back"></i>
-            <i class="bi bi-play-fill" id="masterPlay"></i>
-            <i class="bi bi-skip-end-fill" id="next"></i>
-        </div>
-        <span id="currentStart">0:00</span>
-        <div class="bar">
-            <input type="range" id="seek" min="0" value="0" max="100">
-            <div class="bar2" id="bar2"></div>
-            <div class="dot"></div>
-        </div>
-        <span id="currentEnd">0:00</span>
-        <img src="assets/images/cloud.svg" alt="" srcset="" style="width: 20px; height: auto; margin-left: 15px">
-        <img src="assets/images/library-player.svg" alt="" srcset="" style="width: 20px; height: auto; margin-left: 15px">
-        <img src="assets/images/love-icon.svg" alt="" srcset="" style="width: 20px; height: auto; margin-left: 15px">
-        <img src="assets/images/three-dot.svg" alt="" srcset="" style="width: 20px; height: auto; margin-left: 15px; margin-right: 15px;">    
-        <div class="vol">
-            <i class="bi bi-volume-down-fill" id="vol_icon"></i>
-        </div>
-    </div>
     <!--------------LEFT AND RIGHT TOP SECTION ENDS FROM HERE--------------------->
 
 

@@ -4,7 +4,7 @@ const Like = require("../../models").like;
 
 exports.likeSongs = async (req, res, next) => {
   const userId = req.userId;
-  const { songId } = req.body;
+  const { songId } = req.params;
   if (!songId) {
     return next(customErrorHandler(400, "Missing required field"));
   }
@@ -31,10 +31,12 @@ exports.getUserLikeList = async (req, res, next) => {
   const likeList = await Like.findAll({
     where: { userId },
     include: [
-      { model: Songs, attributes: ["id", "audioPath", "title", "likes"] },
+      {
+        model: Songs,
+        attributes: ["id", "audioPath", "title", "poster", "likes"],
+      },
     ],
   });
-  console.log(likeList);
-  if (!likeList) return next(customErrorHandler(404, "No liked songs found"));
-  return res.json({ message: "success", likeList });
+
+  return res.render("likedsongs", { message: "success", likeList });
 };

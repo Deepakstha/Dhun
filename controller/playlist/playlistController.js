@@ -1,43 +1,51 @@
 const { customErrorHandler } = require("../../middleware/customErrorHandler");
 const Playlist = require("../../models").playlist;
 const Songs = require("../../models").songs;
+const PlaylistSong = require("../../models").playlistSongs;
 
 exports.createPlayList = async (req, res, next) => {
   const userId = req.userId;
-  const { name, songId } = req.body;
+  const { playlistName } = req.body;
   try {
-    if (!name || !songId) req.flash("message", "Name and Song Id are required");
-    return next(customErrorHandler(400, "Name and Song Id are required"));
+    if (!playlistName) req.flash("message", "PlaylistName is required");
 
     const checkPlaylist = await Playlist.findOne({
       where: {
-        name,
+        name: playlistName,
         userId,
       },
     });
     if (checkPlaylist) {
-      return next(
-        customErrorHandler(409, "This playlist already exists for this user")
-      );
+      req.flash("message", "This playlist already exists for this user");
     }
 
-    let playlist = await Playlist.create({ name, songId, userId });
-    return res.status(201).json({
-      success: true,
-      data: playlist,
+    let playlist = await Playlist.create({
+      name: playlistName,
+      userId,
     });
+    return res.redirect("/playlist");
   } catch (err) {
     console.log(err);
     return next(customErrorHandler(err, res));
   }
 };
 
+exports.addSongInPlaylist = async (req, res) => {
+  const { playlistId, songId } = req.body;
+  const playlistSong = await PlaylistSong.create({
+    playlistId,
+    songId,
+  });
+  return res.redirect("/playlist");
+};
+
 // Get all playlist of the user
 exports.getAllUserPlaylists = async (req, res, next) => {
   const userId = req.userId;
   const playlist = await Playlist.findAll({ where: { userId } });
+  const songs = await Songs.findAll();
 
-  res.render("createplaylist", { title: "Create a playlist", data: playlist });
+  res.render("createplaylist", { playlist, songs });
   // return res.status(200).json({
   //   success: true,
   //   count: playlist.length,
@@ -48,18 +56,16 @@ exports.getAllUserPlaylists = async (req, res, next) => {
 // get one playlist song
 exports.getPlaylistSong = async (req, res, next) => {
   const userId = req.userId;
-  const { name } = req.params;
+  const { playlistId } = req.params;
   try {
-    const playlist = await Playlist.findAll({
-      where: { name, userId },
+    const playlist = await PlaylistSong.findAll({
+      where: { playlistId },
       include: [
         { model: Songs, attributes: ["id", "audioPath", "title", "likes"] },
       ],
     });
-    if (!playlist) {
-      return next(customErrorHandler(404, "No playlist found with that Id"));
-    }
-    return res.json({ playlist });
+
+    return res.render("playlistsongs", { playlist });
   } catch (e) {
     return next(e);
   }
