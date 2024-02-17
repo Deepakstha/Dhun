@@ -24,13 +24,13 @@
                     <!-- <h1>LOGO</h1> -->
                     <img src="assets/images/logodhun.png" alt="">
                     <ul>
-                        <li><a href="index.html">
+                        <li><a href="/">
                                 <div class="link-img"><img src="assets/images/home.svg" alt="">Home</div>
                             </a></li>
-                        <li><a href="browse.html">
+                        <li><a href="/browse">
                                 <div class="link-img"><img src="assets/images/browse.svg" alt="">Browse</div>
                             </a></li>
-                        <li><a href="library.html">
+                        <li><a href="/library">
                                 <div class="link-img"><img src="assets/images/library.svg" alt="">Library</div>
                             </a></li>
                     </ul>
@@ -52,99 +52,20 @@
                         <a href="http://" class="box-button">Log In</a>
                     </div>
                 </div>
-                <div class="right-main-browse-container">
+                <div class="right-main-browse-container" style="height: 100vh;">
                     <h2>Browse All</h2>
                     <div class="browse-content">
-                        <a href="#">
-                            <div class="main-browse-box">
-                                <h3>Podcasts</h3>
-                                <img src="assets/images/browse-img1.png" alt="">
-                            </div>
-                        </a>
-                        <a href="#">
-                            <div class="main-browse-box">
-                                <h3>Audiobooks</h3>
-                                <img src="assets/images/audiobooks.png" alt="">
-                            </div>
-                        </a>
-                        <a href="#">
-                            <div class="main-browse-box">
-                                <h3>Made For You</h3>
-                                <img src="assets/images/madeforyou.png" alt="">
-                            </div>
-                        </a>
-                        <a href="#">
-                            <div class="main-browse-box">
-                                <h3>Charts</h3>
-                                <img src="assets/images/charts.png" alt="">
-                            </div>
-                        </a>
-                        <a href="#">
-                            <div class="main-browse-box">
-                                <h3>New Releases</h3>
-                                <img src="assets/images/newrelease.png" alt="">
-                            </div>
-                        </a>
-                        <a href="#">
-                            <div class="main-browse-box">
-                                <h3>Discover</h3>
-                                <img src="assets/images/discover.png" alt="">
-                            </div>
-                        </a>
-                        <a href="#">
-                            <div class="main-browse-box">
-                                <h3>Live Events</h3>
-                                <img src="assets/images/livevents.png" alt="">
-                            </div>
-                        </a>
-                        <a href="#">
-                            <div class="main-browse-box">
-                                <h3>Hip-Hop</h3>
-                                <img src="assets/images/hiphop.png" alt="">
-                            </div>
-                        </a>
-                        <a href="#">
-                            <div class="main-browse-box">
-                                <h3>PoP</h3>
-                                <img src="assets/images/pop.png" alt="">
-                            </div>
-                        </a>
-                        <a href="#">
-                            <div class="main-browse-box">
-                                <h3>Country</h3>
-                                <img src="assets/images/country.png" alt="">
-                            </div>
-                        </a>
-                        <a href="#">
-                            <div class="main-browse-box">
-                                <h3>Latin</h3>
-                                <img src="assets/images/latin.png" alt="">
-                            </div>
-                        </a>
-                        <a href="#">
-                            <div class="main-browse-box">
-                                <h3>Rock</h3>
-                                <img src="assets/images/rock.png" alt="">
-                            </div>
-                        </a>
-                        <a href="#">
-                            <div class="main-browse-box">
-                                <h3>Summer</h3>
-                                <img src="assets/images/summer.png" alt="">
-                            </div>
-                        </a>
-                        <a href="#">
-                            <div class="main-browse-box">
-                                <h3>Workout</h3>
-                                <img src="assets/images/workout.png" alt="">
-                            </div>
-                        </a>
-                        <a href="#">
-                            <div class="main-browse-box">
-                                <h3>R&B</h3>
-                                <img src="assets/images/rnb.png" alt="">
-                            </div>
-                        </a>
+                        <% allCategory.forEach(function(item){ %>
+                            <a href="/browse/<%=item.id%>">
+                                <div class="main-browse-box">
+                                    <h3><%=item.name%></h3>
+                                    <img src="assets/images/browse-img1.png" alt="">
+                                </div>
+                            </a>
+
+                            <% }); %>
+                       
+                       
                     </div>
                 </div>
             </div>

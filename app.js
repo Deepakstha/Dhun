@@ -7,6 +7,8 @@ const session = require("express-session");
 require("./config/dbConfig");
 
 const cookieParser = require("cookie-parser");
+var flash = require("connect-flash");
+const Song = require("./models").songs;
 
 app.use(express.static(__dirname + "/public"));
 app.set("view engine", "ejs");
@@ -23,16 +25,22 @@ app.use(
   })
 );
 
-app.use("/uploads", express.static("uploads"));
+app.use(flash());
+// app.use("/uploads", express.static("uploads"));
+app.use("/uploads", express.static(__dirname + "/uploads"));
 
 //Routes
 app.use("/", require("./routes/userRoutes/userRouter"));
-// app.use("/api/songs", require("./routes/songsRoutes/songRouter"));
-// app.use("/api/playlist", require("./routes/playlistRoutes/playlistRouter"));
-// app.use("/api/like", require("./routes/likeRoutes/likeRouter"));
+app.use("/", require("./routes/songsRoutes/songRouter"));
+app.use("/", require("./routes/playlistRoutes/playlistRouter"));
+app.use("/", require("./routes/likeRoutes/likeRouter"));
+app.use("/", require("./routes/categoryRoutes/categoryRouter"));
 
-app.get("/", (req, res) => {
-  res.render("index");
+app.get("/", async (req, res) => {
+  const message = req.flash("message");
+  const token = req.cookies.token;
+  const allSongs = await Song.findAll({});
+  res.render("index", { message, token, allSongs });
 });
 
 app.use("*", (req, res) => {

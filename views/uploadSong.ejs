@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload songs</title>
+</head>
+<body>
+    <form action="/upload-song" method="post" enctype="multipart/form-data">
+        <input type="text" name="title" placeholder="title"> <br/>
+        <label for="song">Song</label>
+        <input id="song" type="file" name = "song"><br/>
+        <label for="poster">Poster</label>
+        <input id="poster" type="file" name = "poster"><br/>
+
+        <label for="category">Category</label>
+        <select name="category" id="category">
+            <% allCategory.forEach(function(item) { %>
+                <option value="<%=item.id%>"> <%=item.name%></option>
+                <% }); %>
+        </select>
+        <button type="submit">Upload</button>
+    </form>
+</body>
+</html>

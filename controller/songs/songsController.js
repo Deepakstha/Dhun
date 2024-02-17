@@ -1,15 +1,36 @@
 const { customErrorHandler } = require("../../middleware/customErrorHandler");
 const Songs = require("../../models").songs;
 const User = require("../../models").user;
+const Category = require("../../models").category;
 const { Op, QueryTypes } = require("sequelize");
+const { sequelize } = require("../../models");
+
+exports.getOwnSong = async (req, res) => {
+  const userId = req.userId;
+  const songs = await Songs.findAll({
+    where: {
+      userId: userId,
+    },
+  });
+  const message = req.flash("message");
+  const token = req.cookies.token;
+  console.log(songs);
+  return res.render("artistyoursongs", { message, token, songs });
+};
+
+exports.displayUploadSongForm = async (req, res, next) => {
+  const allCategory = await Category.findAll();
+  return res.render("uploadSong", { allCategory });
+};
 
 exports.uploadSong = async (req, res, next) => {
   const userId = req.userId;
-  const { title } = req.body;
-  const song = req.file.filename;
+  const { title, category } = req.body;
+  console.log(req.files);
+  const song = req.files.song[0].filename;
+  const poster = req.files.poster[0].filename;
   let songUrl = `uploads/songs/${song}`;
-  console.log(userId);
-  console.log(songUrl);
+  let posterUrl = `uploads/poster/${poster}`;
   if (!title) {
     return next(customErrorHandler(404, "title is required"));
   }
@@ -20,9 +41,11 @@ exports.uploadSong = async (req, res, next) => {
   const songs = await Songs.create({
     title,
     audioPath: songUrl,
+    poster: posterUrl,
+    categoryId: category,
     userId,
   });
-  return res.status(201).json({ message: "success", data: songs });
+  return res.redirect("/own-song");
 };
 
 //Display all songs
@@ -37,15 +60,22 @@ exports.getAllSongs = async (req, res, next) => {
 
 //Get a single Song by ID
 exports.getSingleSong = async (req, res, next) => {
-  const { songId } = req.body;
+  const { songId } = req.params;
+  console.log(songId);
   try {
-    const song = await Songs.findOne({ where: { id: songId } });
+    const song = await Songs.findOne({
+      where: { id: songId },
+      include: { model: User },
+    });
     if (!song) {
-      return next(customErrorHandler(404, "No song with that ID exists."));
+      return res.json({ message: "No songs" });
     }
-    return res.status(200).json({ success: true, data: song });
+    const message = req.flash("message");
+    const token = req.cookies.token;
+    return res.render("nowplaying", { song, message, token });
+    // return res.status(200).json({ success: true, data: song });
   } catch (err) {
-    return next(customErrorHandler(500, err.message));
+    return res.json({ message: err.message });
   }
 };
 
@@ -81,16 +111,16 @@ exports.getSongsOfArtist = async (req, res, next) => {
 
 //Search song
 exports.searchSongs = async (req, res, next) => {
-  const { songTitle, artistName } = req.body;
+  const { query } = req.body;
   const search = await sequelize.query(
-    "SELECT * FROM songs INNER JOIN users ON songs.userId = users.id WHERE songs.title LIKE :songTitle OR users.fullName LIKE :artistName",
+    "SELECT songs.id as songId, songs.title, songs.poster songPoster, users.fullName,users.avatar,songs.likes FROM songs INNER JOIN users ON songs.userId = users.id WHERE songs.title LIKE :query OR users.fullName LIKE :query",
     {
       replacements: {
-        songTitle: `%${songTitle}%`,
-        artistName: `%${artistName}%`,
+        query: `%${query}%`,
       },
       type: QueryTypes.SELECT,
     }
   );
+  return res.render("artistsearch", { search });
   return res.json({ search });
 };

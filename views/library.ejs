@@ -21,168 +21,122 @@
                     <!-- <h1>LOGO</h1> -->
                     <img src="assets/images/logodhun.png" alt="">
                     <ul>
-                        <li><a href="index.html">
+                        <li><a href="/">
                                 <div class="link-img"><img src="assets/images/home.svg" alt="">Home</div>
                             </a></li>
-                        <li><a href="browse.html">
+                        <li><a href="/browse">
                                 <div class="link-img"><img src="assets/images/browse.svg" alt="">Browse</div>
                             </a></li>
-                        <li><a href="library.html">
+                        <li><a href="/library">
                                 <div class="link-img"><img src="assets/images/library.svg" alt="">Library</div>
                             </a></li>
                     </ul>
+                    <div class="playlist-creation-logout">
+                        <a href="/playlist">
+                            <img src="assets/images/plus.svg" alt="">
+                            <p>Create Playlist</p>
+                        </a>
+                        <a href="/liked-list">
+                            <img src="assets/images/love-playlist.svg" alt="">
+                            <p>Liked Songs</p>
+                        </a>
+                        <a href="#" class="mt-45 ml-20">
+                            <img src="assets/images/setting.svg" alt="">
+                            <p>Setting</p>
+                        </a>
+                        <a href="/logout" class="ml-20">
+                            <img src="assets/images/logout.svg" alt="">
+                            <p>LogOut</p>
+                        </a>
+                    </div>
                 </div>
             </div>
             <div class="right-container">
                 <div class="right-content">
                     <div class="wrap">
-                        <form class="searchform">
+
+                        <form action="/search" class="searchform" method="post">
                             <div class="search-inside-flex">
                                 <a href="#"><img src="assets/images/search.svg" alt=""></a>
-                                <input type="text" placeholder="Search artists, songs, albums...">
-                            </div>
-                            <a href="#"><img src="assets/images/mic.svg" alt=""></a>
+                                <input type="text" name="query" placeholder="Search artists, songs, albums...">
+                            </div>                                                                                                                                                                                                                                                                                                                                                                                                              
+                            <a href="#"><img src="/assets/images/mic.svg" alt=""></a>
+                            <button type="submit"  id="btnSearch" >SEARCH</button>
                         </form>
                     </div>
-                    <div class="signup-button-flex">
-                        <a href="http://" class="no-bg-button">Sign Up</a>
-                        <a href="http://" class="box-button">Log In</a>
-                    </div>
+
+                    <% if (token) { %>
+                        <div class="profile-icon" style=" display: inline-block; width:  100px; height:  100px; border-radius:  50%; border:1px solid white; overflow: hidden;"> <!-- Style this as you wish -->
+                            <!-- Display profile icon or any other profile-related content -->
+                            <img src="/uploads/avatar/avatar.png" alt="Profile Icon" style=" width:  100%;
+                            height: auto;">
+                        </div>
+                    <% } else { %>
+                        <div class="signup-button-flex">
+                            <a href="/listener-signup" class="no-bg-button">Sign Up</a>
+                            <a href="/login" class="box-button">Log In</a>
+                        </div>
+                    <% } %>
+                    
                 </div>
-                <div class="library-fresh-content">
-                    <div class="library-flex-content">
-                        <a href="" class="liked-songs-box-link">
-                            <div class="liked-songs-box">
-                                <h3>Liked songs</h3>
-                                <p>2 liked Songs</p>
-                            </div>
-                        </a>
-                        <a href="">
-                            <div class="library-content-box">
-                                <img src="assets/images/hindies.png" alt="">
-                                <h3>Kollyhood Songs</h3>
-                                <p>Trust us, you need this for yourself</p>
-                            </div>
-                        </a>
-                        <a href="">
-                            <div class="library-content-box">
-                                <img src="assets/images/hindies.png" alt="">
-                                <h3>Kollyhood Songs</h3>
-                                <p>Trust us, you need this for yourself</p>
-                            </div>
-                        </a>
-                        <a href="">
-                            <div class="library-content-box">
-                                <img src="assets/images/hindies.png" alt="">
-                                <h3>Kollyhood Songs</h3>
-                                <p>Trust us, you need this for yourself</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="flex-library-content">
-                        <a href="">
-                            <div class="library-content-box">
-                                <img src="assets/images/hindies.png" alt="">
-                                <h3>Kollyhood Songs</h3>
-                                <p>Trust us, you need this for yourself</p>
-                            </div>
-                        </a>
-                        <a href="">
-                            <div class="library-content-box">
-                                <img src="assets/images/hindies.png" alt="">
-                                <h3>Kollyhood Songs</h3>
-                                <p>Trust us, you need this for yourself</p>
-                            </div>
-                        </a>
-                        <a href="">
-                            <div class="library-content-box">
-                                <img src="assets/images/hindies.png" alt="">
-                                <h3>Kollyhood Songs</h3>
-                                <p>Trust us, you need this for yourself</p>
-                            </div>
-                        </a>
-                        <a href="">
-                            <div class="library-content-box">
-                                <img src="assets/images/hindies.png" alt="">
-                                <h3>Kollyhood Songs</h3>
-                                <p>Trust us, you need this for yourself</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="next-page-btn-flex">
-                        <a href="" class="next-page-button">
-                            Show All
-                        </a>
-                    </div>
-                </div>
-                <div class="top-streams-box">
-                    <div class="local-global-content">
-                        <h3>Top Streams Real-Time</h3>
-                        <div class="local-global-btn">
-                            <a href="" class="local-btn">
-                                Local
-                            </a>
-                            <a href="" class="global-btn">
-                                Global
+                <div class="slider-imgae-top-bg">
+                    <div class="slider-banner-content">
+                        <div class="text-content mb-30">
+                            <h4 class="mb-30">FEATURED SONGS</h4>
+                            <h3>Post Malone</h3>
+                            <h2>Circles</h2>
+                        </div>
+                        <div class="like-play-love-sec">
+                            <img src="assets/images/three-dot.svg" alt="">
+                            <img src="assets/images/love-icon.svg" alt="">
+                            <a href="#" class="play-button">
+                                Play
                             </a>
                         </div>
                     </div>
-                    <div class="flex-top-streams mb-15">
-                        <a href="#" class="song-info-link">
-                            <div class="song-info">
-                                <h3>1</h3>
-                                <img src="assets/images/local-library-music-img.png" alt="">
-                                <div class="song-name">
-                                    <h3>Jog ley hunxa veeta</h3>
-                                    <p>Nepathya</p>
-                                </div>
+                </div>
+                <div class="genre-whole-box">
+                    <div class="genre-content-box mb-30">
+                        <h2>Playlist</h2>
+                        <div class="genre-music-box">
+                            <% playlist.forEach(function(item) { %>
+
+                                <a href="/display-playlist/<%=item.id%>">
+                                    <div class="genre-single-box">
+                                        <h3><%= item.name %></h3>
+                                    </div>
+                                </a>
+                              <% }); %>
+                            
+                           
+                            <div class="click-for-more">
+                                <a href="http://"><img src="assets/images/right-big-arrow.svg" alt=""></a>
+                                <h3>Click for More</h3>
                             </div>
-                        </a>
-                        <div class="song-details">
-                            <h3>3:54</h3>
-                            <img src="assets/images/love-icon.svg" alt="">
-                            <img src="assets/images/three-dot.svg" alt="">
                         </div>
                     </div>
-                    <div class="flex-top-streams mb-15">
-                        <a href="#" class="song-info-link">
-                            <div class="song-info">
-                                <h3>1</h3>
-                                <img src="assets/images/local-library-music-img.png" alt="">
-                                <div class="song-name">
-                                    <h3>Jog ley hunxa veeta</h3>
-                                    <p>Nepathya</p>
-                                </div>
+                    <div class="genre-content-box mb-30">
+                        <h2>Likes</h2>
+                        <div class="genre-music-box">
+                            <% likeList.forEach(function(item) { %>
+
+                                <a href="/one-song/<%= item.song.id %>">
+                                    <div class="genre-single-box">
+                                        <img src="/<%= item.song.poster %>" alt="">
+                                        <h3><%= item.song.title %></h3>
+                                        <p>Likes: <%= item.song.likes %> </p>
+                                    </div>
+                                </a>
+                              <% }); %>
+                            
+                           
+                            <div class="click-for-more">
+                                <a href="http://"><img src="assets/images/right-big-arrow.svg" alt=""></a>
+                                <h3>Click for More</h3>
                             </div>
-                        </a>
-                        <div class="song-details">
-                            <h3>3:54</h3>
-                            <img src="assets/images/love-icon.svg" alt="">
-                            <img src="assets/images/three-dot.svg" alt="">
                         </div>
                     </div>
-                    <div class="flex-top-streams mb-15">
-                        <a href="#" class="song-info-link">
-                            <div class="song-info">
-                                <h3>1</h3>
-                                <img src="assets/images/local-library-music-img.png" alt="">
-                                <div class="song-name">
-                                    <h3>Jog ley hunxa veeta</h3>
-                                    <p>Nepathya</p>
-                                </div>
-                            </div>
-                        </a>
-                        <div class="song-details">
-                            <h3>3:54</h3>
-                            <img src="assets/images/love-icon.svg" alt="">
-                            <img src="assets/images/three-dot.svg" alt="">
-                        </div>
-                    </div>
-                    <div class="exploremore-container">
-                        <a href="#" class="explore-more-btn">
-                            Explore More <img src="assets/images/down-arrow.svg" alt="">
-                        </a>
-                    </div>
+                   
                 </div>
             </div>
         </div>

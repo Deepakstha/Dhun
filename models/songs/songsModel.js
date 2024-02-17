@@ -8,6 +8,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.TEXT,
       allowNull: false,
     },
+    poster: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
     likes: {
       type: DataTypes.INTEGER,
       defaultValue: 0,
