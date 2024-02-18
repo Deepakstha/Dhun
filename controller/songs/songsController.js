@@ -2,6 +2,7 @@ const { customErrorHandler } = require("../../middleware/customErrorHandler");
 const Songs = require("../../models").songs;
 const User = require("../../models").user;
 const Category = require("../../models").category;
+const Subscription = require("../../models").subscription;
 const { Op, QueryTypes } = require("sequelize");
 const { sequelize } = require("../../models");
 
@@ -67,6 +68,7 @@ exports.getAllSongs = async (req, res, next) => {
 //Get a single Song by ID
 exports.getSingleSong = async (req, res, next) => {
   const { songId } = req.params;
+  const userId = req.userId;
   try {
     const song = await Songs.findOne({
       where: { id: songId },
@@ -75,6 +77,12 @@ exports.getSingleSong = async (req, res, next) => {
     if (!song) {
       return res.json({ message: "No songs" });
     }
+
+    const userSubscription = await Subscription.findOne({ where: { userId } });
+    if (!userSubscription) {
+      return res.json({ message: "You dont have subscription" });
+    }
+
     const message = req.flash("message");
     const token = req.cookies.token;
     return res.render("nowplaying", {
@@ -83,7 +91,6 @@ exports.getSingleSong = async (req, res, next) => {
       token,
       userData: req?.user,
     });
-    // return res.status(200).json({ success: true, data: song });
   } catch (err) {
     return res.json({ message: err.message });
   }

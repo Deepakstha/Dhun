@@ -36,6 +36,10 @@ db.playlistSongs = require("./playlist/playlistSongsModel")(
 );
 db.like = require("./likes/likesModel")(sequelize, DataTypes);
 db.category = require("./category/categoryModel")(sequelize, DataTypes);
+db.subscription = require("./subscription/subscriptionModel")(
+  sequelize,
+  DataTypes
+);
 
 //relation with user and songs
 db.user.hasMany(db.songs, { onDelete: "cascade", constraints: true });
@@ -63,6 +67,9 @@ db.songs.hasMany(db.like, {
 });
 db.like.belongsTo(db.songs);
 db.user.hasMany(db.like, { foreignKey: { allowNull: false } });
+
+db.user.hasOne(db.subscription);
+db.subscription.belongsTo(db.user);
 
 //Sync
 db.sequelize.sync({ force: false }).then(async () => {

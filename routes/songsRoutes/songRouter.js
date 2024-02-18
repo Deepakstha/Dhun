@@ -14,7 +14,11 @@ router.post(
 );
 
 router.get("/all-songs", catchAsync(songController.getAllSongs));
-router.get("/one-song/:songId", catchAsync(songController.getSingleSong));
+router.get(
+  "/one-song/:songId",
+  isAuthenticated,
+  catchAsync(songController.getSingleSong)
+);
 router.get(
   "/delete-song/:songId",
   isAuthenticated,
