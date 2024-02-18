@@ -8,7 +8,11 @@ require("./config/dbConfig");
 
 const cookieParser = require("cookie-parser");
 var flash = require("connect-flash");
+
+const jwt = require("jsonwebtoken");
+//importing database
 const Song = require("./models").songs;
+const User = require("./models").user;
 
 app.use(express.static(__dirname + "/public"));
 app.set("view engine", "ejs");
@@ -39,8 +43,13 @@ app.use("/", require("./routes/categoryRoutes/categoryRouter"));
 app.get("/", async (req, res) => {
   const message = req.flash("message");
   const token = req.cookies.token;
+  let decode;
+  if (token) {
+    decode = jwt.verify(token, process.env.JWT_SECRET);
+  }
   const allSongs = await Song.findAll({});
-  res.render("index", { message, token, allSongs });
+  console.log(decode);
+  res.render("index", { message, token, allSongs, userData: decode });
 });
 
 app.use("*", (req, res) => {

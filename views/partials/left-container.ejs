@@ -1,0 +1,44 @@
+<div class="left-container">
+    <div class="left-content">
+        <!-- <h1>LOGO</h1> -->
+        <img src="/assets/images/logodhun.png" alt="">
+        <ul>
+            <li><a href="/">
+                    <div class="link-img"><img src="assets/images/home.svg" alt="">Home</div>
+                </a></li>
+            <li><a href="/browse">
+                    <div class="link-img"><img src="assets/images/browse.svg" alt="">Browse</div>
+                </a></li>
+            <li><a href="/library">
+                    <div class="link-img"><img src="assets/images/library.svg" alt="">Library</div>
+                </a></li>
+        </ul>
+        <% if (token) { %>
+        <div class="playlist-creation-logout">
+            <a href="/playlist">
+                <img src="assets/images/plus.svg" alt="">
+                <p>Create Playlist</p>
+            </a>
+            <a href="/liked-list">
+                <img src="assets/images/love-playlist.svg" alt="">
+                <p>Liked Songs</p>
+            </a>
+            <% if (userData?.role == "artist"){%>
+                <a href="/own-song">
+                    <img src="assets/images/love-playlist.svg" alt="">
+                    <p>Your Songs</p>
+                </a>
+            <%}%>
+            
+            <a href="#" class="mt-45 ml-20">
+                <img src="assets/images/setting.svg" alt="">
+                <p>Setting</p>
+            </a>
+            <a href="/logout" class="ml-20">
+                <img src="assets/images/logout.svg" alt="">
+                <p>LogOut</p>
+            </a>
+        </div>
+        <% } %>
+    </div>
+</div>

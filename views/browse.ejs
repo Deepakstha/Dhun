@@ -19,39 +19,9 @@
     <!------------LEFT AND RIGHT TOP SECTION STARTS FROM-------------->
     <section class="double-section">
         <div class="double-container">
-            <div class="left-container">
-                <div class="left-content">
-                    <!-- <h1>LOGO</h1> -->
-                    <img src="assets/images/logodhun.png" alt="">
-                    <ul>
-                        <li><a href="/">
-                                <div class="link-img"><img src="assets/images/home.svg" alt="">Home</div>
-                            </a></li>
-                        <li><a href="/browse">
-                                <div class="link-img"><img src="assets/images/browse.svg" alt="">Browse</div>
-                            </a></li>
-                        <li><a href="/library">
-                                <div class="link-img"><img src="assets/images/library.svg" alt="">Library</div>
-                            </a></li>
-                    </ul>
-                </div>
-            </div>
+            <%- include('partials/left-container'); %>
             <div class="right-container">
-                <div class="right-content">
-                    <div class="wrap">
-                        <form class="searchform">
-                            <div class="search-inside-flex">
-                                <a href="#"><img src="assets/images/search.svg" alt=""></a>
-                                <input type="text" placeholder="Search artists, songs, albums...">
-                            </div>                                                                                                                                                                                                                                                                                                                                                                                                              
-                            <a href="#"><img src="assets/images/mic.svg" alt=""></a>
-                        </form>
-                    </div>
-                    <div class="signup-button-flex">
-                        <a href="http://" class="no-bg-button">Sign Up</a>
-                        <a href="http://" class="box-button">Log In</a>
-                    </div>
-                </div>
+                <%- include('partials/side-header'); %>
                 <div class="right-main-browse-container" style="height: 100vh;">
                     <h2>Browse All</h2>
                     <div class="browse-content">

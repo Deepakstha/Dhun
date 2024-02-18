@@ -19,61 +19,11 @@
     <!------------LEFT AND RIGHT TOP SECTION STARTS FROM-------------->
     <section class="double-section">
         <div class="double-container">
-            <div class="left-container">
-                <div class="left-content">
-                    <!-- <h1>LOGO</h1> -->
-                    <img src="assets/images/logodhun.png" alt="">
-                    <ul>
-                        <li><a href="/">
-                                <div class="link-img"><img src="assets/images/home.svg" alt="">Home</div>
-                            </a></li>
-                        <li><a href="/browse">
-                                <div class="link-img"><img src="assets/images/browse.svg" alt="">Browse</div>
-                            </a></li>
-                        <li><a href="/library">
-                                <div class="link-img"><img src="assets/images/library.svg" alt="">Library</div>
-                            </a></li>
-                            <% if (token) { %>
-                        <li>
-                            <a href="/logout">
-                                Logout
-                            </a>
-                        </li>
-                        <% }%>
-
-                       
-                    </ul>
-                </div>
-            </div>
+            <%- include('partials/left-container'); %>
             
             <div class="right-container">
                 <p style="color: aliceblue;"><%= message%></p>
-                <div class="right-content">
-                    <div class="wrap">
-
-                        <form action="/search" class="searchform" method="post">
-                            <div class="search-inside-flex">
-                                <a href="#"><img src="assets/images/search.svg" alt=""></a>
-                                <input type="text" name="query" placeholder="Search artists, songs, albums...">
-                            </div>                                                                                                                                                                                                                                                                                                                                                                                                              
-                            <a href="#"><img src="/assets/images/mic.svg" alt=""></a>
-                            <button type="submit"  id="btnSearch" >SEARCH</button>
-                        </form>
-                    </div>
-
-                    <% if (token) { %>
-                        <div class="profile-icon" style=" display: inline-block; width:  100px; height:  100px; border-radius:  50%; border:1px solid white; overflow: hidden;"> <!-- Style this as you wish -->
-                            <!-- Display profile icon or any other profile-related content -->
-                            <a href="/profile"><img src="/uploads/avatar/avatar.png" alt="Profile Icon" style=" width:  100%; height: auto;"></a>
-                        </div>
-                    <% } else { %>
-                        <div class="signup-button-flex">
-                            <a href="/listener-signup" class="no-bg-button">Sign Up</a>
-                            <a href="/login" class="box-button">Log In</a>
-                        </div>
-                    <% } %>
-                    
-                </div>
+                <%- include('partials/side-header'); %>
                 <div class="slider-imgae-top-bg">
                     <div class="slider-banner-content">
                         <div class="text-content mb-30">

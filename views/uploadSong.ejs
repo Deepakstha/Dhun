@@ -1,25 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upload songs</title>
-</head>
-<body>
-    <form action="/upload-song" method="post" enctype="multipart/form-data">
-        <input type="text" name="title" placeholder="title"> <br/>
-        <label for="song">Song</label>
-        <input id="song" type="file" name = "song"><br/>
-        <label for="poster">Poster</label>
-        <input id="poster" type="file" name = "poster"><br/>
 
-        <label for="category">Category</label>
-        <select name="category" id="category">
-            <% allCategory.forEach(function(item) { %>
-                <option value="<%=item.id%>"> <%=item.name%></option>
-                <% }); %>
-        </select>
-        <button type="submit">Upload</button>
-    </form>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Dhun | Home</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+        <link rel="stylesheet" href="/assets/css/style.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    </head>
+
+<body>
+    <section class="double-section">
+        <div class="double-container" style="height: 100vh;">
+            <%- include('partials/left-container'); %>
+            <div class="right-container">
+        <%- include('partials/side-header'); %>
+        <form action="/upload-song" method="post" enctype="multipart/form-data">
+            <input type="text" name="title" placeholder="title"> <br/>
+            <label for="song">Song</label>
+            <input id="song" type="file" name = "song"><br/>
+            <label for="poster">Poster</label>
+            <input id="poster" type="file" name = "poster"><br/>
+
+            <label for="category">Category</label>
+            <select name="category" id="category">
+                <% allCategory.forEach(function(item) { %>
+                    <option value="<%=item.id%>"> <%=item.name%></option>
+                    <% }); %>
+            </select>
+            <button type="submit">Upload</button>
+        </form>
+        </div>
+    </div>
+    </section>
 </body>
 </html>

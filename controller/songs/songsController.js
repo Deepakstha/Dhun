@@ -7,20 +7,26 @@ const { sequelize } = require("../../models");
 
 exports.getOwnSong = async (req, res) => {
   const userId = req.userId;
+  const token = req.cookies.token;
   const songs = await Songs.findAll({
     where: {
       userId: userId,
     },
   });
   const message = req.flash("message");
-  const token = req.cookies.token;
   console.log(songs);
-  return res.render("artistyoursongs", { message, token, songs });
+  return res.render("artistyoursongs", {
+    message,
+    token,
+    songs,
+    userData: req?.user,
+  });
 };
 
 exports.displayUploadSongForm = async (req, res, next) => {
+  const token = req.cookies.token;
   const allCategory = await Category.findAll();
-  return res.render("uploadSong", { allCategory });
+  return res.render("uploadSong", { allCategory, token, userData: req?.user });
 };
 
 exports.uploadSong = async (req, res, next) => {
@@ -61,7 +67,6 @@ exports.getAllSongs = async (req, res, next) => {
 //Get a single Song by ID
 exports.getSingleSong = async (req, res, next) => {
   const { songId } = req.params;
-  console.log(songId);
   try {
     const song = await Songs.findOne({
       where: { id: songId },
@@ -72,7 +77,12 @@ exports.getSingleSong = async (req, res, next) => {
     }
     const message = req.flash("message");
     const token = req.cookies.token;
-    return res.render("nowplaying", { song, message, token });
+    return res.render("nowplaying", {
+      song,
+      message,
+      token,
+      userData: req?.user,
+    });
     // return res.status(200).json({ success: true, data: song });
   } catch (err) {
     return res.json({ message: err.message });
@@ -112,6 +122,7 @@ exports.getSongsOfArtist = async (req, res, next) => {
 //Search song
 exports.searchSongs = async (req, res, next) => {
   const { query } = req.body;
+  const token = req.cookies.token;
   const search = await sequelize.query(
     "SELECT songs.id as songId, songs.title, songs.poster songPoster, users.fullName,users.avatar,songs.likes FROM songs INNER JOIN users ON songs.userId = users.id WHERE songs.title LIKE :query OR users.fullName LIKE :query",
     {
@@ -121,6 +132,6 @@ exports.searchSongs = async (req, res, next) => {
       type: QueryTypes.SELECT,
     }
   );
-  return res.render("artistsearch", { search });
+  return res.render("artistsearch", { search, token, userData: req?.user });
   return res.json({ search });
 };

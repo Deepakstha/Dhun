@@ -65,8 +65,27 @@ db.like.belongsTo(db.songs);
 db.user.hasMany(db.like, { foreignKey: { allowNull: false } });
 
 //Sync
-db.sequelize.sync({ force: false }).then(() => {
+db.sequelize.sync({ force: false }).then(async () => {
   console.log("yes re-sync done");
+  // Seeding Admin
+  await db.user
+    .findOrCreate({
+      where: {
+        email: "admin@admin.com",
+      },
+      defaults: {
+        fullName: "admin",
+        email: "admin@admin.com",
+        password: bcrypt.hashSync("password", 10),
+        role: "admin",
+      },
+    })
+    .then(() => {
+      console.log("Admin Successfully seeded");
+    })
+    .catch((err) => {
+      return console.log(" error ", err);
+    });
 });
 
 module.exports = db;

@@ -24,6 +24,7 @@ module.exports = async (req, res, next) => {
       return res.redirect("/");
     }
     req.userId = loggedUser.id;
+    req.user = loggedUser;
     next();
   } catch (error) {
     if (error.name == "TokenExpiredError") {

@@ -42,10 +42,11 @@ exports.addSongInPlaylist = async (req, res) => {
 // Get all playlist of the user
 exports.getAllUserPlaylists = async (req, res, next) => {
   const userId = req.userId;
+  const token = req.cookies.token;
   const playlist = await Playlist.findAll({ where: { userId } });
   const songs = await Songs.findAll();
 
-  res.render("createplaylist", { playlist, songs });
+  res.render("createplaylist", { playlist, songs, userData: req?.user, token });
   // return res.status(200).json({
   //   success: true,
   //   count: playlist.length,
@@ -57,6 +58,7 @@ exports.getAllUserPlaylists = async (req, res, next) => {
 exports.getPlaylistSong = async (req, res, next) => {
   const userId = req.userId;
   const { playlistId } = req.params;
+  const token = req.cookies.token;
   try {
     const playlist = await PlaylistSong.findAll({
       where: { playlistId },
@@ -65,7 +67,11 @@ exports.getPlaylistSong = async (req, res, next) => {
       ],
     });
 
-    return res.render("playlistsongs", { playlist });
+    return res.render("playlistsongs", {
+      playlist,
+      userData: req?.user,
+      token,
+    });
   } catch (e) {
     return next(e);
   }
@@ -85,5 +91,9 @@ exports.deletePlaylist = async (req, res, next) => {
   const deletedPlaylist = await Playlist.destroy({
     where: { name, userId },
   });
-  return res.json({ message: "Playlist Deleted", deletedPlaylist });
+  return res.json({
+    message: "Playlist Deleted",
+    deletedPlaylist,
+    userData: req?.user,
+  });
 };
