@@ -39,6 +39,7 @@ app.use("/", require("./routes/songsRoutes/songRouter"));
 app.use("/", require("./routes/playlistRoutes/playlistRouter"));
 app.use("/", require("./routes/likeRoutes/likeRouter"));
 app.use("/", require("./routes/categoryRoutes/categoryRouter"));
+app.use("/", require("./routes/subscriptionRoutes/subscriptionRouter"));
 
 app.get("/", async (req, res) => {
   const message = req.flash("message");

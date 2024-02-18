@@ -78,9 +78,23 @@ exports.getSingleSong = async (req, res, next) => {
       return res.json({ message: "No songs" });
     }
 
-    const userSubscription = await Subscription.findOne({ where: { userId } });
-    if (!userSubscription) {
-      return res.json({ message: "You dont have subscription" });
+    const user = await User.findOne({
+      where: {
+        id: userId,
+      },
+    });
+
+    if (user?.role == "listener") {
+      const userSubscription = await Subscription.findOne({
+        where: { userId },
+      });
+      if (!userSubscription) {
+        req.flash(
+          "message",
+          "You dont have subscription!! Please Take subscription of atleast 500"
+        );
+        return res.redirect("/subscription");
+      }
     }
 
     const message = req.flash("message");
