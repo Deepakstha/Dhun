@@ -90,7 +90,7 @@ exports.getSingleSong = async (req, res, next) => {
 };
 
 exports.deleteSong = async (req, res, next) => {
-  const { songId } = req.body;
+  const { songId } = req.params;
   const userId = req.userId;
   const song = await Songs.findOne({
     where: {
@@ -98,15 +98,14 @@ exports.deleteSong = async (req, res, next) => {
     },
   });
   if (!song) {
-    return next(customErrorHandler(404, "song not found"));
+    return res.json({ message: "song not found" });
   }
   if (song.userId != userId) {
-    return next(
-      customErrorHandler(403, "You don't have permission to delete this song")
-    );
+    return res.json({ message: "You dont have permission to delete" });
   }
   const deleted = await Songs.destroy({ where: { id: songId } });
-  return res.json({ message: "Song deleted" });
+  req.flash("message", "Song Deleted");
+  return res.redirect("/own-song");
 };
 
 exports.getSongsOfArtist = async (req, res, next) => {
