@@ -19,45 +19,9 @@
     <!------------LEFT AND RIGHT TOP SECTION STARTS FROM-------------->
     <section class="double-section">
         <div class="double-container" style="height: 100vh;">
-            <div class="left-container">
-                <div class="left-content">
-                    <!-- <h1>LOGO</h1> -->
-                    <img src="assets/images/logodhun.png" alt="">
-                    <ul>
-                        <li><a href="/index">
-                                <div class="link-img"><img src="assets/images/home.svg" alt="">Home</div>
-                            </a></li>
-                        <li><a href="/browse">
-                                <div class="link-img"><img src="assets/images/browse.svg" alt="">Browse</div>
-                            </a></li>
-                        <li><a href="/library">
-                                <div class="link-img"><img src="assets/images/library.svg" alt="">Library</div>
-                            </a></li>
-                    </ul>
-                    <div class="playlist-creation-logout">
-                        
-                        <a href="/logout" class="ml-20">
-                            <img src="assets/images/logout.svg" alt="">
-                            <p>LogOut</p>
-                        </a>
-                    </div>
-                </div>
-            </div>
+            <%- include('partials/left-container'); %>
             <div class="right-container">
-                <div class="right-content">
-                    <div class="wrap">
-                        <form class="searchform">
-                            <div class="search-inside-flex">
-                                <a href="#"><img src="assets/images/search.svg" alt=""></a>
-                                <input type="text" placeholder="Search artists, songs, albums...">
-                            </div>                                                                                                                                                                                                                                                                                                                                                                                                              
-                            <a href="#"><img src="assets/images/mic.svg" alt=""></a>
-                        </form>
-                    </div>
-                    <div class="signup-button-flex">
-                        <a href="http://"><img src="assets/images/profilepic.png" alt=""></a>
-                    </div>
-                </div>
+                <%- include('partials/side-header'); %>s
                 <div class="genre-whole-box">
                     <div class="genre-content-box mb-30">
                         <div class="genre-music-box">
@@ -66,7 +30,7 @@
 
                                 <a href="/one-song/<%= item.songId %>">
                                     <div class="genre-single-box">
-                                        <img src="/<%= item.songPoster %>" alt="">
+                                        <img src="/<%= item.songPoster %>" alt="" style="width: 100%; height: 200px; object-fit: cover;">
                                         <h3><%= item.title %></h3>
                                         <h3><%= item.fullName %></h3>
                                         <p>Likes: <%= item.likes %> </p>
@@ -83,7 +47,7 @@
         </div>
     </section>
 
-    <div class="master_play">
+    <!--<div class="master_play">
         <div class="wave">
             <div class="wave1"></div>
             <div class="wave1"></div>
@@ -112,7 +76,7 @@
         <div class="vol">
             <i class="bi bi-volume-down-fill" id="vol_icon"></i>
         </div>
-    </div>
+    </div>-->
     <!--------------LEFT AND RIGHT TOP SECTION ENDS FROM HERE--------------------->
 
 

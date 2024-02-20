@@ -5,29 +5,31 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Now</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
     <section class="logo-main-container">
         <div class="main-login-container">
             <div class="left-login-content">
-                <img src="assets/images/logodhun.png" alt="">
+                <img src="/assets/images/logodhun.png" alt="">
                 <h2>Welcome</h2>
                 <p>Please do the payment for the artist account.</p>
-                <a href="http://" style="margin-left: 100px; margin-top: 15px;"><img src="assets/images/esewa.svg" alt=""></a>
-                <form action="">
-                    <label for="password">Suscribtion code </label>
-                    <input type="password" id="password" name="password" required>
+                <%=message%>
+                <form action="/artist-subscription" method="post">
+                    <label for="amount">Suscribtion amount </label>
+                    <input type="text" id="amount" name="amount" required>
+                    <input type="hidden" value="<%=artistId%>" name="artistId">
+                    <div class="flex-btn-login">
+                        <button type="submit" class="login-without-logo" style="margin-top: 25px;">Pay now</button>
+                    </div>
                 </form>
-                <div class="flex-btn-login">
-                    <a href="" class="login-without-logo" style="margin-top: 25px;">Sign Up</a>
-                </div>
+                
                 <div class="dont-have-accnt">
-                    <h3>Have an account?</h3><a href="">Login In here</a>
+                    <h3>Have an account?</h3><a href="/login">Login In here</a>
                 </div>
             </div>
             <div class="right-login-content">
-                <img src="assets/images/login-logo.png" alt="">
+                <img src="/assets/images/login-logo.png" alt="">
             </div>
         </div>
     </section>

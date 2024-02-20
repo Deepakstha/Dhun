@@ -2,6 +2,7 @@ const router = require("express").Router();
 const userController = require("../../controller/user/userController");
 const catchAsync = require("../../services/catchAsync");
 const isAuthenticated = require("../../middleware/isAuthenticated");
+const { givePermissionTo } = require("../../middleware/givePermissionTo");
 
 router.post("/signup", catchAsync(userController.signup));
 router.get(
@@ -27,4 +28,30 @@ router.get(
 );
 
 router.get("/artist/:id", catchAsync(userController.artistProfile));
+router.get(
+  "/admin",
+  isAuthenticated,
+  givePermissionTo(["admin"]),
+  catchAsync(userController.displayAdminDashboard)
+);
+router.get(
+  "/total-users",
+  isAuthenticated,
+  givePermissionTo(["admin"]),
+  catchAsync(userController.displayTotalUsers)
+);
+
+router.get(
+  "/total-artist",
+  isAuthenticated,
+  givePermissionTo(["admin"]),
+  catchAsync(userController.displayTotalArtist)
+);
+
+router.get(
+  "/total-listener",
+  isAuthenticated,
+  givePermissionTo(["admin"]),
+  catchAsync(userController.displayTotalListener)
+);
 module.exports = router;

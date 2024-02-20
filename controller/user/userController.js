@@ -79,6 +79,11 @@ exports.signup = async (req, res, next) => {
       password: hashedPassword,
       role,
     });
+
+    if (user.role === "artist") {
+      req.flash("message", "Artist Registered");
+      return res.redirect(`/artist-subscription/${user.id}`);
+    }
     req.flash("message", "User Registered");
     res.redirect("/login");
   } catch (error) {
@@ -106,15 +111,15 @@ exports.login = async (req, res) => {
   }
   // create token
   let token = jwt.sign(
-    { id: user.id, username: user.username },
+    { id: user.id, username: user.username, role: user.role },
     process.env.JWT_SECRET,
     { expiresIn: "5d" }
   );
   res.cookie("token", token, { httpOnly: true });
-  if (user.role === "listener") {
-    return res.redirect("/listener");
+  if (user.role === "admin") {
+    res.redirect("/admin");
   }
-  return res.redirect("/artist");
+  return res.redirect("/");
 };
 
 exports.logout = (req, res) => {
@@ -124,6 +129,7 @@ exports.logout = (req, res) => {
 
 exports.artistProfile = async (req, res) => {
   const artistId = req.params.id;
+  const token = req.cookies.token;
   const user = await User.findOne({
     where: {
       id: artistId,
@@ -138,5 +144,34 @@ exports.artistProfile = async (req, res) => {
     },
   });
   const len = songs.length;
-  return res.render("artistprofile", { user, totalSongs: len });
+  return res.render("artistprofile", {
+    user,
+    totalSongs: len,
+    token,
+    userData: req?.user,
+  });
+};
+
+exports.displayAdminDashboard = async (req, res) => {
+  const totalUsers = await User.findAndCountAll();
+  const artists = await User.findAndCountAll({ where: { role: "artist" } });
+  const listener = await User.findAndCountAll({ where: { role: "listener" } });
+  // return res.json(users);
+  return res.render("admin-index", { totalUsers, artists, listener });
+};
+
+exports.displayTotalUsers = async (req, res) => {
+  const totalUsers = await User.findAndCountAll();
+  // return res.json({ totalUsers });
+  return res.render("admin-view-totausers", { totalUsers });
+};
+
+exports.displayTotalArtist = async (req, res) => {
+  const artists = await User.findAndCountAll({ where: { role: "artist" } });
+  return res.render("admin-view-total-artist", { artists });
+};
+
+exports.displayTotalListener = async (req, res) => {
+  const listener = await User.findAndCountAll({ where: { role: "listener" } });
+  return res.render("admin-view-total-listener", { listener });
 };

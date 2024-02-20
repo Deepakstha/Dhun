@@ -31,8 +31,8 @@ router.get(
   isAuthenticated,
   catchAsync(playlistController.getPlaylistSong)
 );
-router.delete(
-  "/delete-playlist/:name",
+router.get(
+  "/delete-playlist/:id",
   isAuthenticated,
   catchAsync(playlistController.deletePlaylist)
 );

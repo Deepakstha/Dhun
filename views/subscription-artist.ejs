@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Dhun | Home</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+        <link rel="stylesheet" href="/assets/css/style.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    </head>
+
+<body>
+    <!------------BODY HTML STARTS FROM HERE------------------------>
+
+
+
+    <!------------LEFT AND RIGHT TOP SECTION STARTS FROM-------------->
+    <section class="double-section">
+        <div class="double-container" style="height: 100vh;">
+            <%- include('partials/left-container'); %>
+            <div class="right-container">
+                <%- include('partials/side-header'); %>
+<h5 style="color: white;"><%=message%></h5>
+                <form action="/subscribe-artist" method="post" style="display: grid; justify-content: center; margin-top: 100px; transform: translateX(-100px); grid-gap: 12px;">
+                    <input placeholder="Enter amount" style="padding-left: 8px; width: 100%; height: 45px;" name="amount" />
+                    <button type="submit" style="border-radius: 3.612px;
+                    background: var(--branding-red-tint-200, #EE4950); padding: 12px 20px; outline: none; cursor: pointer;">Subscribe Now!</button>
+                </form>
+            </div>
+
+
+        </div>
+    </section>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<div class="right-content">
+    <div class="wrap">
+
+        <form action="/search" class="searchform" method="post">
+            <div class="search-inside-flex">
+                <a href="#"><img src="assets/images/search.svg" alt=""></a>
+                <input type="text" name="query" placeholder="Search artists, songs, albums...">
+            </div>                                                                                                                                                                                                                                                                                                                                                                                                              
+            <a href="#"><img src="/assets/images/mic.svg" alt=""></a>
+            <button type="submit"  id="btnSearch" >SEARCH</button>
+        </form>
+    </div>
+
+    <% if (token) { %>
+        <div class="profile-icon" style=" display: inline-block; width:  50px; height:  50px; border-radius:  50%; border:1px solid white; overflow: hidden;"> <!-- Style this as you wish -->
+            <!-- Display profile icon or any other profile-related content -->
+            <img src="/uploads/avatar/avatar.png" alt="Profile Icon" style=" width: 50px;
+            height: auto;">
+        </div>
+    <% } else { %>
+        <div class="signup-button-flex">
+            <a href="/listener-signup" class="no-bg-button">Sign Up</a>
+            <a href="/login" class="box-button">Log In</a>
+        </div>
+    <% } %>
+    
+</div>

@@ -36,6 +36,10 @@ db.playlistSongs = require("./playlist/playlistSongsModel")(
 );
 db.like = require("./likes/likesModel")(sequelize, DataTypes);
 db.category = require("./category/categoryModel")(sequelize, DataTypes);
+db.subscription = require("./subscription/subscriptionModel")(
+  sequelize,
+  DataTypes
+);
 
 //relation with user and songs
 db.user.hasMany(db.songs, { onDelete: "cascade", constraints: true });
@@ -64,9 +68,31 @@ db.songs.hasMany(db.like, {
 db.like.belongsTo(db.songs);
 db.user.hasMany(db.like, { foreignKey: { allowNull: false } });
 
+db.user.hasOne(db.subscription);
+db.subscription.belongsTo(db.user);
+
 //Sync
-db.sequelize.sync({ force: false }).then(() => {
+db.sequelize.sync({ force: false }).then(async () => {
   console.log("yes re-sync done");
+  // Seeding Admin
+  await db.user
+    .findOrCreate({
+      where: {
+        email: "admin@admin.com",
+      },
+      defaults: {
+        fullName: "admin",
+        email: "admin@admin.com",
+        password: bcrypt.hashSync("password", 10),
+        role: "admin",
+      },
+    })
+    .then(() => {
+      console.log("Admin Successfully seeded");
+    })
+    .catch((err) => {
+      return console.log(" error ", err);
+    });
 });
 
 module.exports = db;

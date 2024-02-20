@@ -27,7 +27,7 @@ exports.likeSongs = async (req, res, next) => {
 // display liked song of user
 exports.getUserLikeList = async (req, res, next) => {
   const userId = req.userId;
-  console.log(userId);
+  const token = req.cookies.token;
   const likeList = await Like.findAll({
     where: { userId },
     include: [
@@ -38,5 +38,10 @@ exports.getUserLikeList = async (req, res, next) => {
     ],
   });
 
-  return res.render("likedsongs", { message: "success", likeList });
+  return res.render("likedsongs", {
+    message: "success",
+    likeList,
+    token,
+    userData: req?.user,
+  });
 };

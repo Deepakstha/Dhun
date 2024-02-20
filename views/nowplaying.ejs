@@ -18,24 +18,70 @@
 
     <!------------LEFT AND RIGHT TOP SECTION STARTS FROM-------------->
     <section class="double-section">
-        <div class="double-container" style="height: 100vh;">
-            <%- include('partials/left-container'); %>
+        <div class="double-container">
+            <div class="left-container">
+                <div class="left-content">
+                    <!-- <h1>LOGO</h1> -->
+                    <img src="/assets/images/logodhun.png" alt="">
+                    <ul>
+                        <li><a href="/">
+                                <div class="link-img"><img src="/assets/images/home.svg" alt="">Home</div>
+                            </a></li>
+                        <li><a href="/browse">
+                                <div class="link-img"><img src="/assets/images/browse.svg" alt="">Browse</div>
+                            </a></li>
+                        <li><a href="/library">
+                                <div class="link-img"><img src="/assets/images/library.svg" alt="">Library</div>
+                            </a></li>
+                    </ul>
+                    <div class="playlist-creation-logout">
+                        <a href="/playlist">
+                            <img src="/assets/images/plus.svg" alt="">
+                            <p>Create Playlist</p>
+                        </a>
+                        <a href="/liked-list">
+                            <img src="/assets/images/love-playlist.svg" alt="">
+                            <p>Liked Songs</p>
+                        </a>
+                        <a href="#" class="mt-45 ml-20">
+                            <img src="/assets/images/setting.svg" alt="">
+                            <p>Setting</p>
+                        </a>
+                        <a href="/logout" class="ml-20">
+                            <img src="/assets/images/logout.svg" alt="">
+                            <p>LogOut</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
             <div class="right-container">
-                <%- include('partials/side-header'); %>
                 <div class="right-content">
-                    <div class="banner-content">
+                    <div class="wrap">
+                        <form action="/search" class="searchform" method="post">
+                            <div class="search-inside-flex">
+                                <a href="#"><img src="assets/images/search.svg" alt=""></a>
+                                <input type="text" name="query" placeholder="Search artists, songs, albums...">
+                            </div>                                                                                                                                                                                                                                                                                                                                                                                                              
+                            <a href="#"><img src="/assets/images/mic.svg" alt=""></a>
+                            <button type="submit"  id="btnSearch" >SEARCH</button>
+                        </form>
+                    </div>
+                    <div class="signup-button-flex">
+                        <a href="http://"><img src="/assets/images/profilepic.png" alt=""></a>
+                    </div>
+                    <div class="banner-content" >
                         <h2>Now Playing</h2>
                         
-                        <img src="/<%= song.poster %>" alt="">
-                        <div class="master_play" style="width: 1000px; height: 80px; justify-content: space-between; margin-top: 15px;">
+                        <img src="/<%= song.poster %>" alt="" style="width: 450px; height: auto;">
+                        <div class="master_play">
                             
                             <img src="/<%= song.poster %>" alt="Alan" id="poster_master_play">
                             <h5 id="title"><%= song.title %><br>
                                 <div class="subtitle"><%= song.user.fullName %></div>
                             </h5>
                            
-                            <span id="currentStart" style="display: flex; align-items: center; width: auto;"> <%= song.createdAt %></span>
-
+                            <span id="currentStart"> <%= song.createdAt %></span>
+                            
                            
                             <audio autoPlay loop controls>
                                 <source src="/<%= song.audioPath %>"></source>
